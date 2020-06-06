@@ -57,7 +57,7 @@ export const AddProject = ({shouldShow = false}) => {
           </span>
         </div>
       )}
-      <span className="add-project_plus">
+      <span className="add-project__plus">
         +
       </span>
       <span
