@@ -20,8 +20,8 @@ export const Projects = ({ activeValue = true }) => {
             : 'sidebar__project'
         }
         onClick={() => {
-          setActive(project.projecId);
-          setSelectedProject(project.projecId);
+          setActive(project.projectId);
+          setSelectedProject(project.projectId);
         }}
       >
         <IndividualProject project={project} />
