@@ -10,14 +10,21 @@ import { Projects } from '../Projects';
 import { AddProject } from '../AddProject';
 
 export const Sidebar = () => {
-  const { setSelectedProject } = useSelectedProjectValue;
+  const { setSelectedProject } = useSelectedProjectValue();
   const [active, setActive] = useState('inbox');
   const [showProjects, setShowProjects] = useState(true);
 
   return (
     <div className="sidebar" data-testid="sidebar">
       <ul className="sidebar__generic">
-        <li data-testid="inbex" className="inbox">
+        <li
+          data-testid="inbox"
+          className={active === 'inbox' ? 'active' : undefined}
+          onClick={() => {
+            setActive('inbox');
+            setSelectedProject('INBOX');
+          }}
+        >
           <span>
             <FaInbox />
           </span>
@@ -25,7 +32,14 @@ export const Sidebar = () => {
             Inbox
           </span>
         </li>
-        <li data-testid="today" className="today">
+        <li
+          data-testid="today"
+          className={active === 'today' ? 'active' : undefined}
+          onClick={() => {
+            setActive('today');
+            setSelectedProject('TODAY');
+          }}
+        >
           <span>
             <FaRegCalendar />
           </span>
@@ -33,7 +47,14 @@ export const Sidebar = () => {
             Today
           </span>
         </li>
-        <li data-testid="next_7" className="next_7">
+        <li
+          data-testid="next_7"
+          className={active === 'next_7' ? 'active' : undefined}
+          onClick={() => {
+            setActive('next_7');
+            setSelectedProject('NEXT_7');
+          }}
+        >
           <span>
             <FaRegCalendarAlt />
           </span>
@@ -43,9 +64,9 @@ export const Sidebar = () => {
         </li>
       </ul>
 
-      <div className="sidebar__middle">
+      <div className="sidebar__middle" onClick={() => setShowProjects(!showProjects)}>
         <span>
-          <FaChevronDown />
+          <FaChevronDown className={!showProjects ? 'hidden-projects' : undefined} />
         </span>
         <h2>Projects</h2>
       </div>
