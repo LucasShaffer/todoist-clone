@@ -1,6 +1,6 @@
-import React, { useState } from "react"
-import { useSelectedProjectValue, useProjectsValue } from "../context";
-import { IndividualProject } from "./IndividualProject";
+import React, { useState } from 'react';
+import { useSelectedProjectValue, useProjectsValue } from '../context';
+import { IndividualProject } from './IndividualProject';
 
 export const Projects = ({ activeValue = true }) => {
   const [active, setActive] = useState(activeValue);
@@ -9,7 +9,7 @@ export const Projects = ({ activeValue = true }) => {
 
   return (
     projects &&
-    projects.map(project => (
+    projects.map((project) => (
       <li
         key={project.projectId}
         data-dod-id={project.docId}
@@ -19,13 +19,24 @@ export const Projects = ({ activeValue = true }) => {
             ? 'active sidebar__project'
             : 'sidebar__project'
         }
-        onClick={() => {
-          setActive(project.projectId);
-          setSelectedProject(project.projectId);
-        }}
       >
-        <IndividualProject project={project} />
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={() => {
+            setActive(project.projectId);
+            setSelectedProject(project.projectId);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              setActive(project.projectId);
+              setSelectedProject(project.projectId);
+            }
+          }}
+        >
+          <IndividualProject project={project} />
+        </div>
       </li>
     ))
   );
-}
+};

@@ -3,13 +3,12 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { useProjectsValue, useSelectedProjectValue } from '../context';
 import { firebase } from '../firebase';
 
-export const IndividualProject = ({project}) => {
+export const IndividualProject = ({ project }) => {
   const [showConfirm, setShowConfirm] = useState(false);
   const { projects, setProjects } = useProjectsValue();
   const { setSelectedProject } = useSelectedProjectValue();
-  
 
-  const deleteProject = docId => {
+  const deleteProject = (docId) => {
     firebase
       .firestore()
       .collection('projects')
@@ -18,7 +17,7 @@ export const IndividualProject = ({project}) => {
       .then(() => {
         setProjects([...projects]);
         setSelectedProject('INBOX');
-    });
+      });
   };
 
   return (
@@ -29,6 +28,11 @@ export const IndividualProject = ({project}) => {
         className="sidebar__project-delete"
         data-testid="delete-project"
         onClick={() => setShowConfirm(!showConfirm)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') setShowConfirm(!showConfirm);
+        }}
+        tabIndex={0}
+        role="button"
       >
         <FaTrashAlt />
         {showConfirm && (
@@ -36,16 +40,29 @@ export const IndividualProject = ({project}) => {
             <div className="project-delete-modal__inner">
               <p>Are you sure you want to delete this project?</p>
               <button
-                type="button"
                 onClick={() => deleteProject(project.docId)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') deleteProject(project.docId);
+                }}
+                tabIndex={0}
+                type="button"
               >
                 Delete
               </button>
-              <span onClick={() => setShowConfirm(!showConfirm)}>Cancel</span>
+              <span
+                onClick={() => setShowConfirm(!showConfirm)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') setShowConfirm(!showConfirm);
+                }}
+                tabIndex={0}
+                role="button"
+              >
+                Cancel
+              </span>
             </div>
           </div>
         )}
       </span>
     </>
   );
-}
+};
