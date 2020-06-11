@@ -110,6 +110,11 @@ $generic-bg: #db4c3f;
   }
 }
 
+@mixin transparent-button {
+  background: transparent;
+  border: 0;
+}
+
 /* Darkmode
   =================================================== */
 .darkmode {
@@ -192,11 +197,27 @@ nav {
           &.settings__add {
             margin-right: 15px;
             font-size: 30px;
+
+            button {
+              @include transparent-button();
+              color: white;
+              cursor: pointer;
+              font-size: 30px;
+            }
           }
 
-          &.settings__dark-mode svg {
-            width: 20px;
-            height: 20px;
+          &.settings__darkmode {
+            button {
+              @include transparent-button();
+              color: white;
+              cursor: pointer;
+              display: flex;
+              
+              svg {
+                width: 20px;
+                height: 20px;
+              }
+            }
           }
         }
       }
@@ -222,30 +243,26 @@ nav {
   }
 
   li {
-    padding-left: 10px;
-    padding-right: 15px;
-
     &:hover .sidebar__project-delete {
-      display: block;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
     }
   }
 
   &__project {
-    padding: 5px 0;
     cursor: pointer;
 
-    // div:nth-child(1) {
-    //   padding: 5px 0;
-    //   padding-left: 10px;
-    //   padding-right: 15px;
-    //   width: 100%;
-    //   display: -webkit-box;
-    //   display: -ms-flexbox;
-    //   display: flex;
-    //   -webkit-box-align: center;
-    //   -ms-flex-align: center;
-    //   align-items: center;
-    // }
+    div:nth-child(1) {
+      padding: 5px 15px 5px 10px;
+      width: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
 
     &-delete {
       margin-left: auto;
@@ -332,7 +349,6 @@ nav {
 
   &__generic {
     li {
-      padding: 10px 0 10px 10px;
       list-style-type: none;
       color: #333;
       display: -webkit-box;
@@ -341,39 +357,32 @@ nav {
       cursor: pointer;
       line-height: 1.50;
       font-size: 15px;
+      padding-left: 0px;
+      padding-right: 0px;
 
-      span:first-of-type {
-        margin-right: 10px;
+      div:nth-child(1) {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        padding: 10px 0 10px 10px;
+        width: 100%;
 
-        svg {
-          width: 18px;
-          height: 18px;
-          color: #555;
+        span:first-of-type {
+          margin-right: 10px;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-align: center;
+              -ms-flex-align: center;
+                  align-items: center;
+
+          svg {
+            width: 18px;
+            height: 18px;
+            color: #555;
+          }
         }
       }
-      // div:nth-child(1) {
-      //   display: -webkit-box;
-      //   display: -ms-flexbox;
-      //   display: flex;
-      //   padding: 10px 0 10px 10px;
-      //   width: 100%;
-
-      //   span:first-of-type {
-      //     margin-right: 10px;
-      //     display: -webkit-box;
-      //     display: -ms-flexbox;
-      //     display: flex;
-      //     -webkit-box-align: center;
-      //         -ms-flex-align: center;
-      //             align-items: center;
-
-      //     svg {
-      //       width: 18px;
-      //       height: 18px;
-      //       color: #555;
-      //     }
-      //   }
-      // }
 
       &.active, &:hover {
         font-weight: bold;
@@ -592,12 +601,23 @@ nav {
 
   &__list li {
     @include task-item();
+    padding: 0;
 
-    span:first-of-type {
-      margin-right: 10px;
+    div:nth-child(1) {
+      padding: 10px;
+      width: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
 
-      svg {
-        fill: grey;
+      span:first-of-type {
+        margin-right: 10px;
+
+        svg {
+          fill: grey;
+        }
       }
     }
   }
@@ -611,6 +631,11 @@ nav {
 
   &__list li {
     @include task-item();
+
+    div:nth-child(1) {
+      width: 100%;
+      padding: 0px;
+    }
   }
 }
 

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { FaRegListAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import moment from 'moment';
-import {firebase} from '../firebase';
+import { firebase } from '../firebase';
 import { useSelectedProjectValue } from '../context';
 import { ProjectOverlay } from './ProjectOverlay';
 import { TaskDate } from './TaskDate';
 
 export const AddTask = ({
-  showAddTaskMain= true,
+  showAddTaskMain = true,
   shouldShowMain = false,
   showQuickAddTask,
   setShowQuickAddTask,
@@ -28,9 +28,7 @@ export const AddTask = ({
     if (projectId === 'TODAY') {
       collatedDate = moment().format('DD/MM/YYYY');
     } else if (projectId === 'NEXT_7') {
-      collatedDate = moment()
-        .add(7, 'days')
-        .format('DD/MM/YYY');
+      collatedDate = moment().add(7, 'days').format('DD/MM/YYY');
     }
 
     return (
@@ -44,7 +42,7 @@ export const AddTask = ({
           projectId,
           task,
           date: collatedDate || taskDate,
-          userId: '1'
+          userId: '1',
         })
         .then(() => {
           setTask('');
@@ -52,19 +50,24 @@ export const AddTask = ({
           setShowMain('');
           setShowProjectOverlay(false);
         })
-    )
-  }
+    );
+  };
 
   return (
     <div
-     className={showQuickAddTask ? 'add-task add-task__overlay' : 'add-task'}
-     data-testid="add-task-comp"
+      className={showQuickAddTask ? 'add-task add-task__overlay' : 'add-task'}
+      data-testid="add-task-comp"
     >
       {showAddTaskMain && (
         <div
           className="add-task__shallow"
           data-testid="show-main-action"
           onClick={() => setShowMain(!showMain)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') setShowMain(!showMain);
+          }}
+          tabIndex={0}
+          role="button"
         >
           <span className="add-task__plus">+</span>
           <span className="add-task__text">Add Task</span>
@@ -75,16 +78,26 @@ export const AddTask = ({
         <div className="add-task__main" data-testid="add-task-main">
           {showQuickAddTask && (
             <>
-            <div data-testid="quick-add-task">
-              <h2 className="header">Quick Add Task</h2>
-              <span
-                className="add-task__cancel-x"
-                data-testid="add-task-quick-cancel"
-                onClick={() => {
-                  setShowMain(false);
-                  setShowProjectOverlay(false);
-                  setShowQuickAddTask(false);
-                }}>
+              <div data-testid="quick-add-task">
+                <h2 className="header">Quick Add Task</h2>
+                <span
+                  className="add-task__cancel-x"
+                  data-testid="add-task-quick-cancel"
+                  onClick={() => {
+                    setShowMain(false);
+                    setShowProjectOverlay(false);
+                    setShowQuickAddTask(false);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      setShowMain(false);
+                      setShowProjectOverlay(false);
+                      setShowQuickAddTask(false);
+                    }
+                  }}
+                  tabIndex={0}
+                  role="button"
+                >
                   X
                 </span>
               </div>
@@ -105,17 +118,31 @@ export const AddTask = ({
             data-testid="add-task-content"
             type="text"
             value={task}
-            onChange={e => setTask(e.target.value)}
+            onChange={(e) => setTask(e.target.value)}
           />
           <button
-            type="button"
             className="add-task__submit"
             data-testid="add-task"
-            onClick={() => 
-              showQuickAddTask ?
-              addTask() && setShowQuickAddTask(false) :
-              addTask()
-            }
+            onClick={() => {
+              if (showQuickAddTask) {
+                addTask();
+                setShowQuickAddTask(false);
+              } else {
+                addTask();
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                if (showQuickAddTask) {
+                  addTask();
+                  setShowQuickAddTask(false);
+                } else {
+                  addTask();
+                }
+              }
+            }}
+            tabIndex={0}
+            type="button"
           >
             Add Task
           </button>
@@ -127,6 +154,14 @@ export const AddTask = ({
                 setShowMain(false);
                 setShowProjectOverlay(false);
               }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setShowMain(false);
+                  setShowProjectOverlay(false);
+                }
+              }}
+              tabIndex={0}
+              role="button"
             >
               Cancel
             </span>
@@ -135,6 +170,11 @@ export const AddTask = ({
             className="add-task__project"
             data-test="show-project-overlay"
             onClick={() => setShowProjectOverlay(!showProjectOverlay)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') setShowProjectOverlay(!showProjectOverlay);
+            }}
+            tabIndex={0}
+            role="button"
           >
             <FaRegListAlt />
           </span>
@@ -142,11 +182,16 @@ export const AddTask = ({
             className="add-task__date"
             data-testid="show-task-date-overlay"
             onClick={() => setShowTaskDate(!showTaskDate)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') setShowTaskDate(!showTaskDate);
+            }}
+            tabIndex={0}
+            role="button"
           >
             <FaRegCalendarAlt />
           </span>
         </div>
       )}
     </div>
-  )
-}
+  );
+};
