@@ -174,7 +174,7 @@ export const AddTask = ({
           <span
             aria-label="Show projects to choose from"
             className="add-task__project"
-            data-test="show-project-overlay"
+            data-testid="show-project-overlay"
             onClick={() => setShowProjectOverlay(!showProjectOverlay)}
             onKeyDown={(e) => {
               if (e.key === 'Enter') setShowProjectOverlay(!showProjectOverlay);
