@@ -60,6 +60,7 @@ export const AddTask = ({
     >
       {showAddTaskMain && (
         <div
+          aria-label="Add task"
           className="add-task__shallow"
           data-testid="show-main-action"
           onClick={() => setShowMain(!showMain)}
@@ -81,6 +82,7 @@ export const AddTask = ({
               <div data-testid="quick-add-task">
                 <h2 className="header">Quick Add Task</h2>
                 <span
+                  aria-label="Cancel adding a task"
                   className="add-task__cancel-x"
                   data-testid="add-task-quick-cancel"
                   onClick={() => {
@@ -114,6 +116,7 @@ export const AddTask = ({
             setShowTaskDate={setShowTaskDate}
           />
           <input
+            aria-label="Enter your task"
             className="add-task__content"
             data-testid="add-task-content"
             type="text"
@@ -121,6 +124,7 @@ export const AddTask = ({
             onChange={(e) => setTask(e.target.value)}
           />
           <button
+            aria-label="Add task"
             className="add-task__submit"
             data-testid="add-task"
             onClick={() => {
@@ -148,6 +152,7 @@ export const AddTask = ({
           </button>
           {!showQuickAddTask && (
             <span
+              aria-label="Cancel adding task"
               className="add-task__cancel"
               data-testid="add-task-main-cancel"
               onClick={() => {
@@ -167,6 +172,7 @@ export const AddTask = ({
             </span>
           )}
           <span
+            aria-label="Show projects to choose from"
             className="add-task__project"
             data-test="show-project-overlay"
             onClick={() => setShowProjectOverlay(!showProjectOverlay)}
@@ -179,6 +185,7 @@ export const AddTask = ({
             <FaRegListAlt />
           </span>
           <span
+            aria-label="Show dates to pick from"
             className="add-task__date"
             data-testid="show-task-date-overlay"
             onClick={() => setShowTaskDate(!showTaskDate)}

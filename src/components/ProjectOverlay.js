@@ -16,6 +16,7 @@ export const ProjectOverlay = ({
           {projects.map((project) => (
             <li key={project.projectId} data-testid="project-overlay-action">
               <div
+                aria-label={`Select the ${project.name} project`}
                 onClick={() => {
                   setProject(project.projectId);
                   setShowProjectOverlay(false);
