@@ -31,12 +31,12 @@ export const AddProject = ({ shouldShow = false }) => {
   return (
     <div className="add-project" data-testid="add-project">
       {show && (
-        <div className="add-project__input">
+        <div className="add-project__input" data-testid="add-project-inner">
           <input
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
             className="add-project__name"
-            test-dadtaid="project-name"
+            data-testid="project-name"
             type="text"
             placeholder="Name your project"
           />
@@ -44,7 +44,11 @@ export const AddProject = ({ shouldShow = false }) => {
             className="add-project__submit"
             type="button"
             onClick={() => addProject()}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') addProject();
+            }}
             data-testid="add-project-submit"
+            tabIndex={0}
           >
             Add Project
           </button>
