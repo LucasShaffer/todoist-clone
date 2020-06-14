@@ -22,6 +22,7 @@ export const Sidebar = () => {
           className={active === 'inbox' ? 'active' : undefined}
         >
           <div
+            data-testid="inbox-action"
             aria-label="Show inbox tasks"
             onClick={() => {
               setActive('inbox');
@@ -47,6 +48,7 @@ export const Sidebar = () => {
           className={active === 'today' ? 'active' : undefined}
         >
           <div
+            data-testid="today-action"
             aria-label="Show todays tasks"
             onClick={() => {
               setActive('today');
@@ -72,6 +74,7 @@ export const Sidebar = () => {
           className={active === 'next_7' ? 'active' : undefined}
         >
           <div
+            data-testid="next_7-action"
             aria-label="Show tasks for the next 7 days"
             onClick={() => {
               setActive('next_7');
